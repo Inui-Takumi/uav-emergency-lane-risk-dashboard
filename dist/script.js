@@ -18,6 +18,7 @@ const quizFootnote = document.getElementById("quiz-footnote");
 const backgroundMusic = document.getElementById("background-music");
 const musicToggle = document.getElementById("music-toggle");
 const coverMusicHint = document.getElementById("cover-music-hint");
+const coverOpenLabel = document.getElementById("cover-open-label");
 const albumPhoto = document.getElementById("album-photo");
 const albumFrame = document.getElementById("album-frame");
 const albumPage = document.getElementById("album-page");
@@ -57,6 +58,8 @@ function updateMusicControl() {
   musicToggle.title = playing ? "暂停背景音乐" : "播放背景音乐";
   if (playing) {
     musicToggle.classList.remove("is-awaiting");
+    coverMusicHint.classList.remove("is-music-awaiting");
+    coverOpenLabel.textContent = "拆开这封信";
     coverMusicHint.textContent = "往后每一页，都等你亲手打开";
   }
 }
@@ -70,8 +73,10 @@ async function tryPlayMusic() {
   } catch (error) {
     if (request !== musicRequest || musicPausedByVisitor) return;
     musicToggle.classList.add("is-awaiting");
+    coverMusicHint.classList.add("is-music-awaiting");
+    coverOpenLabel.textContent = "拆开信，让音乐响起";
     coverMusicHint.textContent = error.name === "NotAllowedError"
-      ? "轻点拆信，音乐也会一起开始"
+      ? "轻点拆信，音乐就会响起 ♫"
       : "音乐暂时没响，点右上角音符再试试";
     updateMusicControl();
   }
@@ -87,7 +92,7 @@ if (hasMusicSource()) {
     if (window.WeixinJSBridge) void tryPlayMusic();
   }
 }
-document.addEventListener("pointerdown", (event) => {
+document.addEventListener("click", (event) => {
   if (event.target.closest("#music-toggle")) return;
   if (backgroundMusic.paused && !musicPausedByVisitor) void tryPlayMusic();
 }, { capture: true });
@@ -97,16 +102,14 @@ musicToggle.addEventListener("click", () => {
     musicRequest++;
     backgroundMusic.pause();
     musicToggle.classList.remove("is-awaiting");
+    coverMusicHint.classList.remove("is-music-awaiting");
+    coverOpenLabel.textContent = "拆开这封信";
     coverMusicHint.textContent = "往后每一页，都等你亲手打开";
     return;
   }
   musicPausedByVisitor = false;
   void tryPlayMusic();
 });
-document.querySelector(".scene-cover [data-next]").addEventListener("click", () => {
-  if (hasMusicSource() && backgroundMusic.paused && !musicPausedByVisitor) void tryPlayMusic();
-}, { capture: true });
-
 function showAlbumPhoto(index) {
   albumIndex = (index + albumPhotos.length) % albumPhotos.length;
   const photo = albumPhotos[albumIndex];
