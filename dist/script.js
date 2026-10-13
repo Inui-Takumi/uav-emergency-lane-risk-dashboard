@@ -81,7 +81,7 @@ backgroundMusic.addEventListener("play", updateMusicControl);
 backgroundMusic.addEventListener("pause", updateMusicControl);
 if (hasMusicSource()) {
   musicToggle.hidden = false;
-  window.addEventListener("load", () => { void tryPlayMusic(); }, { once: true });
+  void tryPlayMusic();
   if (/MicroMessenger/i.test(navigator.userAgent)) {
     document.addEventListener("WeixinJSBridgeReady", () => { void tryPlayMusic(); }, { once: true });
     if (window.WeixinJSBridge) void tryPlayMusic();
