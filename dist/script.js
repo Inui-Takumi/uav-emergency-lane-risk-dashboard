@@ -82,7 +82,15 @@ backgroundMusic.addEventListener("pause", updateMusicControl);
 if (hasMusicSource()) {
   musicToggle.hidden = false;
   window.addEventListener("load", () => { void tryPlayMusic(); }, { once: true });
+  if (/MicroMessenger/i.test(navigator.userAgent)) {
+    document.addEventListener("WeixinJSBridgeReady", () => { void tryPlayMusic(); }, { once: true });
+    if (window.WeixinJSBridge) void tryPlayMusic();
+  }
 }
+document.addEventListener("pointerdown", (event) => {
+  if (event.target.closest("#music-toggle")) return;
+  if (backgroundMusic.paused && !musicPausedByVisitor) void tryPlayMusic();
+}, { capture: true });
 musicToggle.addEventListener("click", () => {
   if (!backgroundMusic.paused) {
     musicPausedByVisitor = true;
