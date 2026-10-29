@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#086da8">
+  <meta name="description" content="高速应急车道智慧管控平台——无人机视觉风险预警中心">
+  <title>高速应急车道智慧管控平台</title>
+  <link rel="stylesheet" href="./styles.css?v=27ff0a5">
+  <script src="./script.js?v=27ff0a5" defer></script>
+</head>
+<body>
+  <section class="auth-screen" id="auth-screen">
+    <div class="auth-brand">
+      <div class="auth-logo">✦</div>
+      <p class="auth-kicker">EXPRESSWAY · UAV VISION</p>
+      <h1>高速应急车道<br>智慧管控平台</h1>
+      <p>无人机视觉风险预警中心</p>
+      <div class="auth-features"><span>✓ 长距离机动巡检</span><span>✓ 风险智能识别</span><span>✓ 应急车道动态管控</span></div>
+      <div class="radar"><i></i><i></i><i></i><b>✦</b></div>
+    </div>
+    <div class="auth-panel">
+      <div class="auth-box login-box">
+        <p class="eyebrow">SYSTEM ACCESS</p><h2>欢迎登录</h2><p class="auth-tip">使用调度中心账号进入系统</p>
+        <label>账号<input id="login-user" value="admin" autocomplete="username"></label>
+        <label>密码<input id="login-password" type="password" value="123456" autocomplete="current-password"></label>
+        <div class="auth-row"><label class="check"><input type="checkbox" checked> 记住账号</label><button class="link-btn" type="button">忘记密码？</button></div>
+        <button class="primary" id="login-submit" type="button">进入智慧管控平台 <span>→</span></button>
+        <p class="auth-switch">还没有账号？<button id="show-register" type="button">申请注册</button></p>
+      </div>
+      <div class="auth-box register-box" hidden>
+        <p class="eyebrow">ACCOUNT APPLICATION</p><h2>申请系统账号</h2><p class="auth-tip">填写信息后由管理员审核开通</p>
+        <div class="form-grid"><label>姓名<input placeholder="请输入姓名"></label><label>所属单位<input placeholder="请输入单位名称"></label></div>
+        <label>手机号码<input placeholder="请输入手机号码"></label><label>设置密码<input type="password" placeholder="至少 6 位字符"></label>
+        <label class="check agree"><input type="checkbox" checked> 我已阅读并同意平台使用规范</label>
+        <button class="primary" id="register-submit" type="button">提交注册申请 <span>→</span></button>
+        <p class="auth-switch">已有账号？<button id="show-login" type="button">返回登录</button></p>
+      </div>
+      <p class="auth-copy">© 2026 Highway Vision Lab · 数据仅供演示</p>
+    </div>
+  </section>
+
+  <div class="app" id="app" hidden>
+    <header class="topbar">
+      <div class="brand"><span>✦</span><div><small>高速应急车道智慧管控平台</small><strong>无人机视觉风险预警中心</strong></div></div>
+      <div class="top-tools"><span id="now"></span><button title="系统消息">♧<i></i></button><span class="user-avatar">管</span><span>调度管理员</span><button class="logout" id="logout" type="button">退出</button></div>
+    </header>
+    <aside class="sidebar">
+      <p>系统导航</p>
+      <nav>
+        <button data-page="overview" class="active"><i>▦</i><span>综合概览</span></button>
+        <button data-page="corridor"><i>⌁</i><span>路段态势</span></button>
+        <button data-page="drones"><i>✦</i><span>无人机巡检</span></button>
+        <button data-page="lanes"><i>⇄</i><span>应急车道</span></button>
+        <button data-page="alerts"><i>⚑</i><span>风险预警</span><b>3</b></button>
+        <button data-page="analysis"><i>▥</i><span>数据分析</span></button>
+        <button data-page="system"><i>⚙</i><span>系统状态</span></button>
+      </nav>
+      <div class="side-status"><span></span><div>无人机巡检在线<small>3 架设备运行中</small></div></div>
+    </aside>
+    <main class="workspace">
+      <div class="page-top"><div><p id="page-parent">智慧管控平台</p><h1 id="page-title">综合概览</h1></div><div class="sync"><i></i>数据同步正常 · <b>刚刚更新</b></div></div>
+      <div id="page-content" class="page-content" aria-live="polite"></div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>
